@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { emailChanged, passwordChanged, loginUser, signUpUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import SignUpForm from './SignUpForm';
 import LoginForm from './LoginForm';
@@ -13,8 +13,13 @@ class AuthForm extends Component {
 
 	onButtonPress() {
 		const { email, password } = this.props;
+		if(this.state.loginState === false){
+		this.props.loginUser({ email, password });
+		} 
 
-		this.props.loginUser({ email, password }); 
+		else {
+			this.props.signUpUser({ email, password });
+		}
 	}
 
 	renderButton() {
@@ -74,4 +79,4 @@ const mapStateToProps = ({ auth }) => {
 	return { email, password, error, loading };
 };
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(AuthForm);
+export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser, signUpUser })(AuthForm);

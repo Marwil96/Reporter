@@ -40,7 +40,6 @@ class SignUpForm extends Component {
 				</CardSection>
 				<CardSection>
 					<Input 
-						secureTextEntry
 						label="Name"
 						placeholder="..."
 						onChangeText={this.onNameChange.bind(this)}
