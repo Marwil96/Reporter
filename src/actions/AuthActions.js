@@ -17,6 +17,13 @@ export const passwordChanged = (text) => {
 	};
 };
 
+export const nameChange = (text) => {
+	return {
+		type: NAME_CHANGE,
+		payload: text
+	};
+};
+
 export const loginUser = ({ email, password }) => {
 	return (dispatch) => {
 	dispatch({ type: LOGIN_USER });
@@ -32,6 +39,8 @@ export const loginUser = ({ email, password }) => {
 		});
 	};
 };
+
+
 const loginUserFail = (dispatch) => {
 	dispatch({ type: LOGIN_USER_FAIL });
 };

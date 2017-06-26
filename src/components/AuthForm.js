@@ -4,16 +4,12 @@ import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
+import SignUpForm from './SignUpForm';
+import LoginForm from './LoginForm';
 
 
 class AuthForm extends Component {
-	onEmailChange(text) {
-		this.props.emailChanged(text);
-	}
-
-	onPasswordChange(text) {
-		this.props.passwordChanged(text);
-	}
+	state = { loginState: false }
 
 	onButtonPress() {
 		const { email, password } = this.props;
@@ -33,30 +29,29 @@ class AuthForm extends Component {
 				);		
 	}
 
+	renderForm() {
+		if(this.state.loginState) {
+			return (
+				<SignUpForm />
+				)
+		}
+
+			return (
+				<LoginForm />
+				)
+	}
+
 	render() {
 		return (
 			<Card>
 				<CardSection>
-					<Input 
-						label="Email"
-						placeholder="email@gmail.com"
-						onChangeText={this.onEmailChange.bind(this)}
-						value={this.props.email}
-					/>
-				</CardSection>
-
-				<CardSection>
-					<Input 
-						secureTextEntry
-						label="Password"
-						placeholder="password"
-						onChangeText={this.onPasswordChange.bind(this)}
-						value={this.props.password}
-					/>
+					<Button onPress={() => this.setState({ loginState: false })} > Login </Button>
+					<Button onPress={() => this.setState({ loginState: true })}> SignUp </Button>
 				</CardSection>
 				<Text style={styles.errorTextStyle}>
 					{ this.props.error }
 				</Text>
+				{this.renderForm()}
 				<CardSection>
 					{this.renderButton()}
 				</CardSection>
