@@ -34,13 +34,17 @@ export const loginUser = ({ email, password }) => {
 	};
 };
 
-export const signUpUser = ({ email, password }) => {
+export const signUpUser = ({ email, password, name }) => {
+	const { currentUser } = firebase.auth();
 	return (dispatch) => {
 		dispatch({ type: LOGIN_USER });
 
 		firebase.auth().createUserWithEmailAndPassword(email, password)
 			.then(user => loginUserSuccess(dispatch, user))
 			.catch(() => loginUserFail(dispatch));
+
+		firebase.database().ref(`/users/${currentUser.uid}/employees`)
+		.push({ name });
 	};
 };
 
