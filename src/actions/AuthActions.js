@@ -25,17 +25,20 @@ export const nameChange = (text) => {
 };
 
 export const loginUser = ({ email, password }) => {
+	console.log(email, password);
 	return (dispatch) => {
 	dispatch({ type: LOGIN_USER });
 
 	firebase.auth().signInWithEmailAndPassword(email, password)
 		.then(user => loginUserSuccess(dispatch, user))
 		.catch(() => loginUserFail(dispatch));
+
 	};
 };
 
 export const signUpUser = ({ email, password, name }) => {
 	const { currentUser } = firebase.auth();
+	console.log(email, password, name);
 	return (dispatch) => {
 		dispatch({ type: LOGIN_USER });
 
@@ -43,8 +46,8 @@ export const signUpUser = ({ email, password, name }) => {
 			.then(user => loginUserSuccess(dispatch, user))
 			.catch(() => loginUserFail(dispatch));
 
-		firebase.database().ref(`/users/${currentUser.uid}/employees`)
-		.push({ name });
+		firebase.database().ref(`/users/${currentUser.uid}/credentials`)
+		.push({ name, email });
 	};
 };
 

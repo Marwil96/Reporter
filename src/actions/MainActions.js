@@ -1,7 +1,7 @@
 /* eslint-disable eol-last */
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
-import { TEXT_CHANGE, SUBJECT_CHANGE } from './types';
+import { TEXT_CHANGE, SUBJECT_CHANGE, SAVED_COMPLAINT } from './types';
 
 export const textChange = (text) => {
 	return {
@@ -16,4 +16,11 @@ export const subjectChange = (text) => {
 		payload: text	
 	};
 };
-
+export const saveComplaint = ({ text, subject }) => {
+	const { currentUser } = firebase.auth();
+	return (dispatch) => {
+		dispatch({ type: SAVED_COMPLAINT });
+		firebase.database().ref(`/users/${currentUser.uid}/complaints`)
+		.push({ text, subject });
+	};
+};

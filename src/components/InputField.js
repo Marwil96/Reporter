@@ -4,10 +4,15 @@ import React, { Component } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import MapScreen from './MapScreen';
-import { textChange, subjectChange } from '../actions';
+import { textChange, subjectChange, saveComplaint } from '../actions';
 import { CardSection, Card, Input, Button, LargeInput } from './common';
 
 class InputField extends Component {
+
+	onButtonPress() {
+		const { text, subject } = this.props;
+		this.props.saveComplaint({ text, subject });
+	}
 
 	onTextChange(text) {
 		this.props.textChange(text);
@@ -39,6 +44,9 @@ class InputField extends Component {
 							value={this.props.text}
 						/>
 				</CardSection>
+				<CardSection>
+				<Button onPress={this.onButtonPress.bind(this)}> Send </Button>
+				</CardSection>
 
 			</Card> 
 		);
@@ -58,4 +66,4 @@ const mapStateToProps = ({ auth }) => {
 };
 
 
-export default connect(mapStateToProps, { textChange, subjectChange })(InputField);
+export default connect(mapStateToProps, { textChange, subjectChange, saveComplaint })(InputField);

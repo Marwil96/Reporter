@@ -12,13 +12,13 @@ class AuthForm extends Component {
 	state = { loginState: false }
 
 	onButtonPress() {
-		const { email, password } = this.props;
+		const { email, password, name } = this.props;
 		if(this.state.loginState === false){
 		this.props.loginUser({ email, password });
 		} 
 
 		else {
-			this.props.signUpUser({ email, password });
+			this.props.signUpUser({ email, password, name });
 		}
 	}
 
@@ -74,9 +74,9 @@ const styles = {
 };
 
 const mapStateToProps = ({ auth }) => {
-	const { email, password, error, loading } = auth;
+	const { email, password, error, loading, name } = auth;
 
-	return { email, password, error, loading };
+	return { email, password, error, loading, name };
 };
 
 export default connect(mapStateToProps, { loginUser, signUpUser })(AuthForm);

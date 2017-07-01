@@ -1,5 +1,5 @@
 /* eslint-disable eol-last */
-import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER, NAME_CHANGE, TEXT_CHANGE, SUBJECT_CHANGE } from '../actions/types';
+import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER, NAME_CHANGE, TEXT_CHANGE, SUBJECT_CHANGE, SAVED_COMPLAINT } from '../actions/types';
 
 const INITIAL_STATE = { email: '', password: '', user: null, error: '', loading: false, name: '', text: '', subject: '' };
 
@@ -18,6 +18,8 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, text: action.payload };
 		case SUBJECT_CHANGE:
 			return { ...state, subject: action.payload };
+		case SAVED_COMPLAINT:
+			return { INITIAL_STATE }
 		case LOGIN_USER_SUCCESS:
 			return { ...state, user: action.payload, error: '', loading: false, email: '', password: '', name:'' };
 		case LOGIN_USER_FAIL:

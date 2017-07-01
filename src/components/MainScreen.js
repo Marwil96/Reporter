@@ -11,7 +11,7 @@ import { CardSection, Card, Input, RoundButton } from './common';
 class MainScreen extends Component {
 
 	onTextChange(text) {
-		this.props.textChange(text);
+		this.props.saveComplaint(text);
 	}
 
 	render() {
