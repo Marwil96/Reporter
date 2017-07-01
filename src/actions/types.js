@@ -6,3 +6,4 @@ export const LOGIN_USER_FAIL = 'login_user_fail';
 export const LOGIN_USER = 'login_user';
 export const NAME_CHANGE = 'name_change';
 export const TEXT_CHANGE = 'text_change';
+export const SUBJECT_CHANGE = 'subject_change';

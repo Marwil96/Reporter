@@ -98,12 +98,12 @@ class MapScreen extends Component {
 const styles = {
 	textStyle: {
 		position: 'absolute',
-	    top: 50,
-	    left: 15,
+	    top: -5,
+	    left: 0,
 	    right: 0,
 	    bottom: 0,
-	    width: 325,
-	    height: 400
+	    height: 505,
+	    alignSelf: 'stretch'
 	},
 	inputStyle: {
 		   position: 'absolute',

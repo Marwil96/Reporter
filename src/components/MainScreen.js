@@ -4,8 +4,9 @@ import React, { Component } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import MapScreen from './MapScreen';
+import InputField from './InputField';
 import { textChange } from '../actions';
-import { CardSection, Card, Input } from './common';
+import { CardSection, Card, Input, RoundButton } from './common';
 
 class MainScreen extends Component {
 
@@ -15,19 +16,20 @@ class MainScreen extends Component {
 
 	render() {
 		return (
-			<View>
+			<View >
 				<MapScreen />
-				<Input 
-						label="Problem"
-						placeholder="..."
-						onChangeText={this.onTextChange.bind(this)}
-						value={this.props.text}
-					/>
-			</View>
+				<InputField />
+				<RoundButton  children={ 'Report' }/>
+			</View> 
 		);
 	}
 }
 
+const styles = {
+	mapInputStyle: {
+		
+	}
+}
 
 const mapStateToProps = ({ auth }) => {
 	const { text  } = auth;
