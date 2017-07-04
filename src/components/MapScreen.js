@@ -64,12 +64,13 @@ class MapScreen extends Component {
       	this.setState({initialPosition: lastRegion})
       	this.setState({markerPosition: lastRegion})
       })
+      
   }
   componentWillMount() {
   	navigator.geolocation.clearWatch(this.watchID)
-  	console.log(this.state.initialPosition);
   }
 
+ 
 
 
 
@@ -115,5 +116,6 @@ const styles = {
 	    alignItems: 'center',
 	}
 };
+
 
 export default MapScreen;

@@ -9,10 +9,10 @@ import MainScreen from './components/MainScreen';
 const RouterComponent = () => {
 	return (
 		<Router sceneStyle={{ paddingTop: 65 }}>
-			<Scene key='auth'>
+			<Scene key='auth' >
 				<Scene key='login' component={AuthForm} title='Please Login' />
 			</Scene>
-			<Scene key='main' >
+			<Scene key='main'  >
 				<Scene
 					onRight={() => Actions.employeeCreate()}
 					rightTitle="Add" 

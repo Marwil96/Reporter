@@ -8,3 +8,4 @@ export const NAME_CHANGE = 'name_change';
 export const TEXT_CHANGE = 'text_change';
 export const SUBJECT_CHANGE = 'subject_change';
 export const SAVED_COMPLAINT = 'saved_complaint'
+export const NAVIGATION_SAVE = 'navigation_save'

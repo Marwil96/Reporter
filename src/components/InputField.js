@@ -4,17 +4,41 @@ import React, { Component } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import MapScreen from './MapScreen';
-import { textChange, subjectChange, saveComplaint } from '../actions';
+import { textChange, subjectChange, saveComplaint, navigationsSaver } from '../actions';
 import { CardSection, Card, Input, Button, LargeInput } from './common';
 
 class InputField extends Component {
+	constructor(props) {
+    super(props);
+
+    this.state = {
+      latitude: null,
+      longitude: null,
+      error: null,
+    };
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null,
+        });
+      },
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+  }
 
 	onButtonPress() {
-		const { text, subject } = this.props;
-		this.props.saveComplaint({ text, subject });
+		const { text, subject, navigation } = this.props;
+		this.props.saveComplaint({ text, subject, navigation });
 	}
 
 	onTextChange(text) {
+		this.props.navigationsSaver( {latitude:this.state.latitude, longitude:this.state.longitude });
 		this.props.textChange(text);
 	}
 
@@ -60,10 +84,10 @@ const styles = {
 }
 
 const mapStateToProps = ({ auth }) => {
-	const { text, subject  } = auth;
+	const { text, subject, navigation  } = auth;
 
-	return { text, subject };
+	return { text, subject, navigation };
 };
 
 
-export default connect(mapStateToProps, { textChange, subjectChange, saveComplaint })(InputField);
+export default connect(mapStateToProps, { textChange, subjectChange, saveComplaint, navigationsSaver })(InputField);
