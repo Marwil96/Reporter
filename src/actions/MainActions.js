@@ -1,4 +1,5 @@
 /* eslint-disable eol-last */
+/*
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import { TEXT_CHANGE, SUBJECT_CHANGE, SAVED_COMPLAINT, NAVIGATION_SAVE } from './types';
@@ -25,11 +26,17 @@ export const navigationsSaver = (text) => {
 	};
 };
 export const saveComplaint = ({ text, subject, navigation }) => {
-	console.log(navigation, text, subject);
 	const { currentUser } = firebase.auth();
-	return (dispatch) => {
-		dispatch({ type: SAVED_COMPLAINT });
-		firebase.database().ref(`/users/${currentUser.uid}/complaints`)
-		.push({ text, subject, navigation });
-	};
+	console.log(navigation, text, subject, currentUser, firebase.auth().currentUser.uid);
+	if(currentUser){
+		return (dispatch) => {
+			dispatch({ type: SAVED_COMPLAINT });
+			firebase.database().ref(`/users/${firebase.auth().currentUser.uid}/complaints`)
+			.push({ text, subject, navigation});
+		};
+	}
+	else {
+		console.log("Complaint saknar anvandare");
+	}
 };
+*/
