@@ -31,7 +31,8 @@ const styles = {
 		borderColor: '#007aff',
 		marginLeft: 5,
 		marginRight: 5,
-		marginTop:400
+		marginTop:400,
+		position: 'absolute'
 	}
 };
 export { RoundButton };

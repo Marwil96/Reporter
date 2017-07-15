@@ -12,7 +12,7 @@ const RouterComponent = () => {
 			<Scene key='auth' >
 				<Scene key='login' component={AuthForm} title='Please Login' />
 			</Scene>
-			<Scene key='main'  >
+			<Scene key='main' initial  >
 				<Scene
 					onRight={() => Actions.employeeCreate()}
 					rightTitle="Add" 

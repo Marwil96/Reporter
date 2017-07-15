@@ -32,6 +32,7 @@ class InputField extends Component {
     );
   }
 
+
 	onButtonPress() {
 		const { text, subject, navigation } = this.props;
 		this.props.saveComplaint({ text, subject, navigation });
@@ -48,38 +49,39 @@ class InputField extends Component {
 
 	render() {
 		return (
-			<Card >
-				<CardSection>
-					<Input 
-							style={styles.mapInputStyle}
-							label="Problem"
-							placeholder="..."
-							onChangeText={this.onSubjectChange.bind(this)}
-							value={this.props.subject}
-						/>
-				</CardSection>
+			<View style={styles.cardStyle}>
+				<Card>
+					<CardSection>
+						<Input 
+								label="Problem"
+								placeholder="..."
+								onChangeText={this.onSubjectChange.bind(this)}
+								value={this.props.subject}
+							/>
+					</CardSection>
 
-				<CardSection>
-					<LargeInput 
-							style={styles.mapInputStyle}
-							label="Problem"
-							placeholder="..."
-							onChangeText={this.onTextChange.bind(this)}
-							value={this.props.text}
-						/>
-				</CardSection>
-				<CardSection>
-				<Button onPress={this.onButtonPress.bind(this)}> Send </Button>
-				</CardSection>
+					<CardSection>
+						<LargeInput 
+								label="Problem"
+								placeholder="..."
+								onChangeText={this.onTextChange.bind(this)}
+								value={this.props.text}
+							/>
+					</CardSection>
+					<CardSection>
+					<Button onPress={this.onButtonPress.bind(this)}> Send </Button>
+					</CardSection>
 
-			</Card> 
+				</Card> 
+			</View>
 		);
 	}
 }
 
 const styles = {
-	mapInputStyle: {
-		
+	cardStyle: {
+		top: 700,
+		position: 'relative'
 	}
 }
 

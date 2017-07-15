@@ -1,7 +1,7 @@
 /* eslint-disable eol-last */
 
 import React, { Component } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Text, TextInput, View, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import MapScreen from './MapScreen';
 import InputField from './InputField';
@@ -9,6 +9,15 @@ import { textChange } from '../actions';
 import { CardSection, Card, Input, RoundButton } from './common';
 
 class MainScreen extends Component {
+		componentWillMount() {
+			this.position = new Animated.ValueXY();
+		}
+		animateOnButtonPress() {
+    Animated.timing(this.position, {
+      toValue: { x: 0, y: -450 },
+      duration: 1500
+    }).start();
+  }
 
 	onTextChange(text) {
 		this.props.saveComplaint(text);
@@ -18,8 +27,10 @@ class MainScreen extends Component {
 		return (
 			<View >
 				<MapScreen />
-				<InputField />
-				<RoundButton  children={ 'Report' }/>
+				<RoundButton onPress={this.animateOnButtonPress.bind(this)} children={ 'Report' }/>
+				<Animated.View style={this.position.getLayout()}>
+					<InputField />
+				</Animated.View>
 			</View> 
 		);
 	}
