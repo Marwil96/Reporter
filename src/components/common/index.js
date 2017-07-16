@@ -7,4 +7,5 @@ export * from './Input';
 export * from './LargeInput';
 export * from './Spinner';
 export * from './Confirm';
+export * from './ExitButton';
 

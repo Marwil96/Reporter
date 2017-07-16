@@ -1,12 +1,8 @@
 /* eslint-disable eol-last */
 import React from 'react';
-import { Text, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
-const {width, height} = Dimensions.get('window')
-
-const SCREEN_HEIGHT = height;
-
-const RoundButton = ({ onPress, children }) => {
+const ExitButton = ({ onPress, children }) => {
 	const { buttonStyle, textStyle } = styles; 
 	return (
 		<TouchableOpacity onPress={onPress} style={buttonStyle}>
@@ -27,17 +23,14 @@ const styles = {
 		paddingBottom: 10
 	},
 	buttonStyle: {
-		width:200,
-		alignSelf: 'center',
+		flex: 0.15,
+		alignSelf: 'stretch',
 		backgroundColor: '#fff',
-		borderRadius: 20,
+		borderRadius: 5,
 		borderWidth: 1,
 		borderColor: '#007aff',
 		marginLeft: 5,
-		marginRight: 5,
-		flex: 1,
-		marginTop: SCREEN_HEIGHT*0.7,
-		position: 'absolute'
+		marginRight: 5
 	}
 };
-export { RoundButton };
+export { ExitButton };

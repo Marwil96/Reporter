@@ -1,6 +1,11 @@
 /* eslint-disable eol-last */
 import React from 'react';
-import { TextInput, View, Text } from 'react-native';
+import { TextInput, View, Text, Dimensions } from 'react-native';
+
+const {width, height} = Dimensions.get('window')
+
+const SCREEN_HEIGHT = height
+const SCREEN_WIDTH = width
 
 const LargeInput = ({ label, value, onChangeText, placeholder, secureTextEntry }) => {
 	const { inputStyle, labelStyle, containerStyle } = styles;
@@ -31,7 +36,7 @@ const styles = {
 		lineHeight: 23,
 		flex: 2,
 		alignItems: 'flex-start',
-		height: 100
+		height: SCREEN_HEIGHT*0.18
 
 	},
 	labelStyle: {
@@ -40,7 +45,7 @@ const styles = {
 		flex: 1
 	},
 	containerStyle: {
-		height: 200,
+		height: SCREEN_HEIGHT*0.3,
 		flex: 1,
 		flexDirection: 'row',
 		alignItems: 'flex-start'

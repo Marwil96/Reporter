@@ -5,7 +5,7 @@ import { Text, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import MapScreen from './MapScreen';
 import { textChange, subjectChange, saveComplaint, navigationsSaver } from '../actions';
-import { CardSection, Card, Input, Button, LargeInput } from './common';
+import { CardSection, Card, Input, Button, LargeInput, ExitButton } from './common';
 
 class InputField extends Component {
 	constructor(props) {
@@ -36,6 +36,7 @@ class InputField extends Component {
 	onButtonPress() {
 		const { text, subject, navigation } = this.props;
 		this.props.saveComplaint({ text, subject, navigation });
+		this.props.onAnimate();
 	}
 
 	onTextChange(text) {
@@ -58,6 +59,7 @@ class InputField extends Component {
 								onChangeText={this.onSubjectChange.bind(this)}
 								value={this.props.subject}
 							/>
+						<ExitButton children="X" onPress={this.props.onAnimate} />
 					</CardSection>
 
 					<CardSection>
@@ -69,7 +71,7 @@ class InputField extends Component {
 							/>
 					</CardSection>
 					<CardSection>
-					<Button onPress={this.onButtonPress.bind(this)}> Send </Button>
+						<Button onPress={this.onButtonPress.bind(this)}> Send </Button>
 					</CardSection>
 
 				</Card> 

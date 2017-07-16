@@ -77,12 +77,12 @@ class MapScreen extends Component {
 
 
 	render() {
-		const { textStyle, inputStyle } = styles;
+		const { mapStyle, inputStyle } = styles;
 		
 		return (
 			<View>
 				<MapView
-					style={textStyle}
+					style={mapStyle}
 				    region={this.state.initialPosition}
 				    
 				  >
@@ -97,13 +97,13 @@ class MapScreen extends Component {
 }
 
 const styles = {
-	textStyle: {
+	mapStyle: {
 		position: 'absolute',
-	    top: -5,
+	    top: -11,
 	    left: 0,
 	    right: 0,
 	    bottom: 0,
-	    height: 505,
+	    height: SCREEN_HEIGHT,
 	    alignSelf: 'stretch'
 	},
 	inputStyle: {
