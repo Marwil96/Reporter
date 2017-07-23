@@ -1,8 +1,8 @@
 /* eslint-disable eol-last */
-/*
+
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
-import { TEXT_CHANGE, SUBJECT_CHANGE, SAVED_COMPLAINT, NAVIGATION_SAVE } from './types';
+import { TEXT_CHANGE, SUBJECT_CHANGE, SAVED_COMPLAINT, NAVIGATION_SAVE, CORDINATES_FETCH_SUCCESS } from './types';
 
 export const textChange = (text) => {
 	return {
@@ -39,4 +39,14 @@ export const saveComplaint = ({ text, subject, navigation }) => {
 		console.log("Complaint saknar anvandare");
 	}
 };
-*/
+
+export const fetchCordinates = () => {
+	const { currentUser } = firebase.auth();
+	console.log(currentUser, firebase.auth().currentUser.uid);
+  return (dispatch) => {
+    firebase.database().ref(`/users/${firebase.auth().currentUser.uid}/complaints`)
+      .on('value', snapshot => {
+        dispatch({ type: CORDINATES_FETCH_SUCCESS, payload: snapshot.val() });
+      });
+  };
+};

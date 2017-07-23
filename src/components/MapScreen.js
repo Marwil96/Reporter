@@ -1,9 +1,12 @@
 /* eslint-disable eol-last */
 
+import _ from 'lodash';
 import React, { Component } from 'react';
-import { Text, TextInput, View, Dimensions } from 'react-native';
+import {connect} from 'react-redux';
+import { Text, TextInput, View, Dimensions, ListView } from 'react-native';
 import MapView from 'react-native-maps';
-import { CardSection, Card } from './common';
+import {fetchCordinates} from '../actions';
+import { CardSection, Card, ListItem } from './common';
 
 const {width, height} = Dimensions.get('window')
 
@@ -67,12 +70,28 @@ class MapScreen extends Component {
       
   }
   componentWillMount() {
-  	navigator.geolocation.clearWatch(this.watchID)
+  	navigator.geolocation.clearWatch(this.watchID);
+
+    this.props.fetchCordinates();
+
+    console.log('componentWillMount', this.props.cordinates, this.state.cordinates ,this.props)
+
   }
 
- 
 
+/*
+May Be used later
+markerRender()  {
+  const navigationCordinates = this.props.cordinates;
+  for(i = 0; i < this.props.cordinates.length; i++){
+    console.log('markerRender', navigationCordinates[i].navigation, this.props.cordinates.length, i)
 
+    return( <MapView.Marker
+            key={i}
+            coordinate={navigationCordinates[i].navigation}>
+    </MapView.Marker> );
+    }
+}*/
 
 
 
@@ -84,11 +103,18 @@ class MapScreen extends Component {
 				<MapView
 					style={mapStyle}
 				    region={this.state.initialPosition}
+            title={'Home'}
 				    
 				  >
 					  <MapView.Marker
 					  coordinate={this.state.markerPosition}>
 					  </MapView.Marker>
+            {this.props.cordinates.map(marker => (
+            <MapView.Marker
+              key={marker.uid} 
+              coordinate={marker.navigation}
+            />
+          ))}
 				  </MapView>
 			</View>
 		
@@ -117,5 +143,14 @@ const styles = {
 	}
 };
 
+const mapStateToProps = state => {
+  const cordinates = _.map(state.cordinates, (val, uid) => {
+    console.log('mapStateToProps', ...val, uid, cordinates)
+    return { ...val, uid };
+  });
+  console.log('mapStateToProps2', cordinates)
+  return { cordinates };
+};
 
-export default MapScreen;
+
+export default connect(mapStateToProps, { fetchCordinates })(MapScreen);

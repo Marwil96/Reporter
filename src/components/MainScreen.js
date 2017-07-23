@@ -18,7 +18,7 @@ class MainScreen extends Component {
 		componentWillMount() {
 			this.position = new Animated.ValueXY();
 			if (Platform.OS === 'ios')  {
-				ANIMATION_DISTANCE = height *0.65
+				ANIMATION_DISTANCE = height *0.68
 			}
 			else {
 				ANIMATION_DISTANCE = height * 0.87

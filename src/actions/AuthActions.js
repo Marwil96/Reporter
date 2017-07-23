@@ -48,41 +48,7 @@ export const signUpUser = ({ email, password, name }) => {
 	};
 };
 
-export const textChange = (text) => {
-	return {
-		type: TEXT_CHANGE,
-		payload: text	
-	};
-};
 
-export const subjectChange = (text) => {
-	return {
-		type: SUBJECT_CHANGE,
-		payload: text	
-	};
-};
-
-export const navigationsSaver = (text) => {
-	console.log(text);
-	return {
-		type: NAVIGATION_SAVE,
-		payload: text	
-	};
-};
-export const saveComplaint = ({ text, subject, navigation }) => {
-	const { currentUser } = firebase.auth();
-	console.log(navigation, text, subject, currentUser, firebase.auth().currentUser.uid);
-	if(currentUser){
-		return (dispatch) => {
-			dispatch({ type: SAVED_COMPLAINT });
-			firebase.database().ref(`/users/${firebase.auth().currentUser.uid}/complaints`)
-			.push({ text, subject, navigation});
-		};
-	}
-	else {
-		console.log("Complaint saknar anvandare");
-	}
-};
 
 const loginUserFail = (dispatch) => {
 	dispatch({ type: LOGIN_USER_FAIL });

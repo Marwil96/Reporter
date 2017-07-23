@@ -42,7 +42,7 @@ const styles = {
 		flex: 1
 	},
 	containerStyle: {
-		height: SCREEN_HEIGHT*0.06,
+		height: SCREEN_HEIGHT*0.09,
 		flex: 1,
 		flexDirection: 'row',
 		alignItems: 'center'
