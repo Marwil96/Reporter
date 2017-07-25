@@ -1,10 +1,11 @@
 /* eslint-disable eol-last */
 
 import React, { Component } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Text, TextInput, View, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import MapScreen from './MapScreen';
 import { textChange, subjectChange, saveComplaint, navigationsSaver } from '../actions';
+var cities = require('../json/kommuner.geo.json');
 import { CardSection, Card, Input, Button, LargeInput, ExitButton } from './common';
 
 class InputField extends Component {
@@ -35,8 +36,12 @@ class InputField extends Component {
 
 	onButtonPress() {
 		const { text, subject, navigation } = this.props;
-		this.props.saveComplaint({ text, subject, navigation });
-		this.props.onAnimate();
+		if(this.props.text == '' && this.props.subject == '') {
+			console.log('ingen information');
+		} else {
+			this.props.saveComplaint({ text, subject, navigation });
+			this.props.onAnimate();
+		}
 	}
 
 	onTextChange(text) {
@@ -48,6 +53,7 @@ class InputField extends Component {
 		this.props.subjectChange(text);
 	}
 
+	
 	render() {
 		return (
 			<View style={styles.cardStyle}>
@@ -70,6 +76,20 @@ class InputField extends Component {
 								value={this.props.text}
 							/>
 					</CardSection>
+			
+						<Picker
+						
+						>
+							{cities.map(city => (
+								<Picker.Item 
+								key={city.kod}
+								label= {city.namn}
+								value= {city.namn} 
+								/>
+								))}
+						</Picker>
+					
+
 					<CardSection>
 						<Button onPress={this.onButtonPress.bind(this)}> Send </Button>
 					</CardSection>

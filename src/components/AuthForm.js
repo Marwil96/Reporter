@@ -1,6 +1,6 @@
 /* eslint-disable eol-last */
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { loginUser, signUpUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
@@ -48,19 +48,21 @@ class AuthForm extends Component {
 
 	render() {
 		return (
-			<Card>
-				<CardSection>
-					<Button onPress={() => this.setState({ loginState: false })} > Login </Button>
-					<Button onPress={() => this.setState({ loginState: true })}> SignUp </Button>
-				</CardSection>
-				<Text style={styles.errorTextStyle}>
-					{ this.props.error }
-				</Text>
-				{this.renderForm()}
-				<CardSection>
-					{this.renderButton()}
-				</CardSection>
-			</Card>
+			<View style={{ paddingTop: 65 }}>
+				<Card>
+					<CardSection>
+						<Button onPress={() => this.setState({ loginState: false })} > Login </Button>
+						<Button onPress={() => this.setState({ loginState: true })}> SignUp </Button>
+					</CardSection>
+					<Text style={styles.errorTextStyle}>
+						{ this.props.error }
+					</Text>
+					{this.renderForm()}
+					<CardSection>
+						{this.renderButton()}
+					</CardSection>
+				</Card>
+			</View>
 		);
 	}
 }
