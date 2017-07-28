@@ -10,3 +10,5 @@ export const SUBJECT_CHANGE = 'subject_change';
 export const SAVED_COMPLAINT = 'saved_complaint';
 export const NAVIGATION_SAVE = 'navigation_save';
 export const CORDINATES_FETCH_SUCCESS = 'cordinates_fetch_success';
+export const SAVED_COMPLAINT_SUCCESS = 'saved_complaint_success';
+export const SAVED_COMPLAINT_FAIL = 'saved_complaint_fail';

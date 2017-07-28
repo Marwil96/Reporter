@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import MapScreen from './MapScreen';
 import { textChange, subjectChange, saveComplaint, navigationsSaver } from '../actions';
 var cities = require('../json/kommuner.geo.json');
-import { CardSection, Card, Input, Button, LargeInput, ExitButton } from './common';
+import { CardSection, Card, Input, Button, LargeInput, ExitButton, Spinner } from './common';
 
 class InputField extends Component {
 	constructor(props) {
@@ -32,7 +32,8 @@ class InputField extends Component {
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
   }
-
+ 
+ 	
 
 	onButtonPress() {
 		const { text, subject, navigation } = this.props;
@@ -51,6 +52,16 @@ class InputField extends Component {
 
 	onSubjectChange(text) {
 		this.props.subjectChange(text);
+	}
+
+	renderButton() {
+		if (this.props.loading) {
+			return <Spinner size="large" />;
+		}
+		
+			return ( 
+				<Button onPress={this.onButtonPress.bind(this)}> Send </Button>
+				);		
 	}
 
 	
@@ -78,7 +89,7 @@ class InputField extends Component {
 					</CardSection>
 			
 						<Picker
-						
+
 						>
 							{cities.map(city => (
 								<Picker.Item 
@@ -91,7 +102,7 @@ class InputField extends Component {
 					
 
 					<CardSection>
-						<Button onPress={this.onButtonPress.bind(this)}> Send </Button>
+						{this.renderButton()}
 					</CardSection>
 
 				</Card> 
@@ -108,9 +119,9 @@ const styles = {
 }
 
 const mapStateToProps = ({ auth }) => {
-	const { text, subject, navigation  } = auth;
+	const { text, subject, navigation, loading  } = auth;
 
-	return { text, subject, navigation };
+	return { text, subject, navigation, loading };
 };
 
 

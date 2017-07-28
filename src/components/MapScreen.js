@@ -145,10 +145,8 @@ const styles = {
 
 const mapStateToProps = state => {
   const cordinates = _.map(state.cordinates, (val, uid) => {
-    console.log('mapStateToProps', ...val, uid, cordinates)
     return { ...val, uid };
   });
-  console.log('mapStateToProps2', cordinates)
   return { cordinates };
 };
 

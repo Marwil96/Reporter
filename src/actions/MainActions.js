@@ -2,7 +2,8 @@
 
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
-import { TEXT_CHANGE, SUBJECT_CHANGE, SAVED_COMPLAINT, NAVIGATION_SAVE, CORDINATES_FETCH_SUCCESS } from './types';
+import Geocoder from 'react-native-geocoder';
+import { TEXT_CHANGE, SUBJECT_CHANGE, SAVED_COMPLAINT, NAVIGATION_SAVE, CORDINATES_FETCH_SUCCESS, SAVED_COMPLAINT_SUCCESS, SAVED_COMPLAINT_FAIL } from './types';
 
 export const textChange = (text) => {
 	return {
@@ -26,27 +27,43 @@ export const navigationsSaver = (text) => {
 	};
 };
 export const saveComplaint = ({ text, subject, navigation }) => {
-	const { currentUser } = firebase.auth();
-	console.log(navigation, text, subject, currentUser, firebase.auth().currentUser.uid);
-	if(currentUser){
-		return (dispatch) => {
-			dispatch({ type: SAVED_COMPLAINT });
-			firebase.database().ref(`/users/${firebase.auth().currentUser.uid}/complaints`)
-			.push({ text, subject, navigation});
-		};
-	}
-	else {
-		console.log("Complaint saknar anvandare");
-	}
+	return (dispatch) => {
+	dispatch({ type: SAVED_COMPLAINT });
+	var currentLocation = {
+	  lat: navigation.latitude,
+	  lng: navigation.longitude
+	};
+	Geocoder.geocodePosition(currentLocation).then(res => {
+		var currentCity = res[0].locality;
+		console.log('inFunction', res[0].locality )
+		saveComplaintSuccess(dispatch, currentCity, text, subject, navigation)
+	})
+	 .catch(() => savedComplaintFail(dispatch));
+	 };
 };
 
 export const fetchCordinates = () => {
 	const { currentUser } = firebase.auth();
-	console.log(currentUser, firebase.auth().currentUser.uid);
   return (dispatch) => {
     firebase.database().ref(`/users/${firebase.auth().currentUser.uid}/complaints`)
       .on('value', snapshot => {
         dispatch({ type: CORDINATES_FETCH_SUCCESS, payload: snapshot.val() });
       });
   };
+};
+
+
+const savedComplaintFail = (dispatch) => {
+	dispatch({ type: SAVED_COMPLAINT_FAIL });
+};
+
+const saveComplaintSuccess = (dispatch, currentCity, text, subject, navigation) => {
+	console.log('saveComplaintSuccess', currentCity, text, subject, navigation);
+	const { currentUser } = firebase.auth();
+	firebase.database().ref(`/users/${firebase.auth().currentUser.uid}/complaints`)
+	.push({ text, subject, navigation, currentCity });	
+	dispatch({
+		type: SAVED_COMPLAINT_SUCCESS,
+		payload: user
+	});
 };
