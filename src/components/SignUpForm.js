@@ -1,6 +1,6 @@
 /* eslint-disable eol-last */
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, nameChange } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
@@ -19,11 +19,12 @@ class SignUpForm extends Component {
 
 	render() {
 		return (
-			<Card>
+			<View>
 				<CardSection>
 					<Input 
 						label="Email"
 						placeholder="email@gmail.com"
+						icon="user"
 						onChangeText={this.onEmailChange.bind(this)}
 						value={this.props.email}
 					/>
@@ -34,6 +35,7 @@ class SignUpForm extends Component {
 						secureTextEntry
 						label="Password"
 						placeholder="password"
+						icon="check"
 						onChangeText={this.onPasswordChange.bind(this)}
 						value={this.props.password}
 					/>
@@ -42,11 +44,12 @@ class SignUpForm extends Component {
 					<Input 
 						label="Name"
 						placeholder="..."
+						icon="user"
 						onChangeText={this.onNameChange.bind(this)}
 						value={this.props.name}
 					/>
 				</CardSection>
-			</Card>
+			</View>
 				)
 			}
 		}

@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { Text, TextInput, View, Dimensions, ListView } from 'react-native';
+import { Text, TextInput, View, Dimensions, ListView, Image } from 'react-native';
 import MapView from 'react-native-maps';
 import {fetchCordinates} from '../actions';
 import { CardSection, Card, ListItem } from './common';
@@ -94,6 +94,18 @@ markerRender()  {
 }*/
 
 
+  markerRender() {
+   return (
+       this.props.cordinates.map(marker => (
+            <MapView.Marker
+              key={marker.uid} 
+              coordinate={marker.navigation}
+              onPress={this.props.onInformationAnimate}
+            />
+          ))
+    )
+  }
+
 
 	render() {
 		const { mapStyle, inputStyle } = styles;
@@ -107,14 +119,11 @@ markerRender()  {
 				    
 				  >
 					  <MapView.Marker
-					  coordinate={this.state.markerPosition}>
+            image={require('../img/position.png')}
+					  coordinate={this.state.markerPosition}
+            > 
 					  </MapView.Marker>
-            {this.props.cordinates.map(marker => (
-            <MapView.Marker
-              key={marker.uid} 
-              coordinate={marker.navigation}
-            />
-          ))}
+           {this.markerRender()}
 				  </MapView>
 			</View>
 		
@@ -125,12 +134,13 @@ markerRender()  {
 const styles = {
 	mapStyle: {
 		position: 'absolute',
-	    top: -11,
+	    top: 0,
 	    left: 0,
 	    right: 0,
 	    bottom: 0,
 	    height: SCREEN_HEIGHT,
-	    alignSelf: 'stretch'
+	    width: SCREEN_WIDTH,
+      zIndex: 40
 	},
 	inputStyle: {
 		   position: 'absolute',

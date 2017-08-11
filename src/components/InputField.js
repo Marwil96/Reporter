@@ -1,12 +1,17 @@
 /* eslint-disable eol-last */
 
 import React, { Component } from 'react';
-import { Text, TextInput, View, Picker } from 'react-native';
+import { Text, TextInput, View, Picker, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import MapScreen from './MapScreen';
 import { textChange, subjectChange, saveComplaint, navigationsSaver } from '../actions';
 var cities = require('../json/kommuner.geo.json');
-import { CardSection, Card, Input, Button, LargeInput, ExitButton, Spinner } from './common';
+import { CardSection, Card, JiroInput, Button, LargeInput, ExitButton, Spinner } from './common';
+
+const {width, height} = Dimensions.get('window')
+
+const SCREEN_HEIGHT = height
+const SCREEN_WIDTH = width
 
 class InputField extends Component {
 	constructor(props) {
@@ -68,28 +73,46 @@ class InputField extends Component {
 	render() {
 		return (
 			<View style={styles.cardStyle}>
-				<Card>
-					<CardSection>
-						<Input 
-								label="Problem"
-								placeholder="..."
-								onChangeText={this.onSubjectChange.bind(this)}
-								value={this.props.subject}
-							/>
+				<CardSection>
+					<JiroInput 
+							label="Problem"
+							placeholder="..."
+							icon="user"
+							onChangeText={this.onSubjectChange.bind(this)}
+							value={this.props.subject}
+						/>
+						
+				</CardSection>
+				<CardSection>
+					<JiroInput 
+							label="Problem"
+							placeholder="..."
+							icon="user"
+							onChangeText={this.onSubjectChange.bind(this)}
+							value={this.props.subject}
+						/>
+
+						<JiroInput 
+							label="Problem"
+							placeholder="..."
+							icon="user"
+							onChangeText={this.onSubjectChange.bind(this)}
+							value={this.props.subject}
+						/>
+				</CardSection>
+
+				<CardSection>
+					<LargeInput 
+							label="Problem"
+							placeholder="..."
+							onChangeText={this.onTextChange.bind(this)}
+							value={this.props.text}
+						/>
 						<ExitButton children="X" onPress={this.props.onAnimate} />
-					</CardSection>
-
-					<CardSection>
-						<LargeInput 
-								label="Problem"
-								placeholder="..."
-								onChangeText={this.onTextChange.bind(this)}
-								value={this.props.text}
-							/>
-					</CardSection>
-			
+				</CardSection>
+						{/* 
+						Picker with json information
 						<Picker
-
 						>
 							{cities.map(city => (
 								<Picker.Item 
@@ -99,13 +122,12 @@ class InputField extends Component {
 								/>
 								))}
 						</Picker>
-					
+					*/}
 
-					<CardSection>
-						{this.renderButton()}
-					</CardSection>
+				<CardSection>
+					{this.renderButton()}
+				</CardSection>
 
-				</Card> 
 			</View>
 		);
 	}
@@ -113,8 +135,7 @@ class InputField extends Component {
 
 const styles = {
 	cardStyle: {
-		top: 700,
-		position: 'relative'
+		top: 200
 	}
 }
 

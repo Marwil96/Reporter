@@ -9,7 +9,7 @@ const {width, height} = Dimensions.get('window')
 const SCREEN_HEIGHT = height
 const SCREEN_WIDTH = width
 
-const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, icon }) => {
+const JiroInput = ({ label, value, onChangeText, placeholder, secureTextEntry, icon }) => {
 	const { inputStyle, labelStyle, containerStyle } = styles;
 
 	return (
@@ -35,10 +35,9 @@ const styles = {
 		color: '#000',
 		paddingRight: 5,
 		paddingLeft: 5,
-		justifyContent:'center',
-		alignItems: 'center',
-		width: SCREEN_WIDTH*0.75,
-		borderBottomColor:'white',
+		
+		width: SCREEN_WIDTH*0.40,
+		borderBottomColor:'black',
 		borderBottomWidth: 1
 
 	},
@@ -49,8 +48,11 @@ const styles = {
 		flexDirection: 'row',
 		justifyContent:'center',
 		alignItems: 'center',
-    	borderBottomColor: '#d6d7da'
+    	borderBottomColor:'black',
+		borderBottomWidth: 1,
+		borderRightColor:'black',
+		borderRightWidth: 1
 	} 
 };
 
-export { Input };
+export { JiroInput };

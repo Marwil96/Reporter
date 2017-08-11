@@ -9,4 +9,5 @@ export * from './Spinner';
 export * from './Confirm';
 export * from './ExitButton';
 export * from './ListItem';
-
+export * from './ButtonText';
+export * from './JiroInput';

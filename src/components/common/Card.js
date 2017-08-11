@@ -1,7 +1,11 @@
 /* eslint-disable eol-last */
 import React from 'react';
-import { View } from 'react-native';
+import { View, Dimensions } from 'react-native';
 
+const {width, height} = Dimensions.get('window')
+
+const SCREEN_HEIGHT = height;
+const SCREEN_WIDTH = width;
 const Card = (props) => {
 	return (
 		<View style={style.containerStyle}>
@@ -23,7 +27,7 @@ const style = {
 		elevation: 1,
 		marginLeft: 5,
 		marginRight: 5,
-		marginTop: 10
+		marginTop: 10,
 	}
 };
 

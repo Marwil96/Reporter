@@ -1,11 +1,16 @@
 /* eslint-disable eol-last */
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { loginUser, signUpUser } from '../actions';
-import { Card, CardSection, Input, Button, Spinner } from './common';
+import { Card, CardSection, Input, Button, Spinner, ButtonText } from './common';
 import SignUpForm from './SignUpForm';
 import LoginForm from './LoginForm';
+
+const {width, height} = Dimensions.get('window')
+
+const SCREEN_HEIGHT = height;
+const SCREEN_WIDTH = width;
 
 
 class AuthForm extends Component {
@@ -45,23 +50,39 @@ class AuthForm extends Component {
 				<LoginForm />
 				)
 	}
+	changeLoginButton() {
+		if(this.state.loginState === true) {
+			return(
+			<View style={styles.changeLoginStateContainer}>
+				<Text style={styles.signUpText}>Dont have an account?</Text>
+				<ButtonText onPress={() => this.setState({ loginState: false })} > Login </ButtonText>
+			</View>
+			)
+		} 
+			return(
+				<View style={styles.changeLoginStateContainer}>
+					<Text style={styles.signUpText}>Have an account?</Text>
+					<ButtonText onPress={() => this.setState({ loginState: true })}> SignUp </ButtonText>
+				</View>
+				)
+	}
 
 	render() {
 		return (
-			<View style={{ paddingTop: 65 }}>
-				<Card>
-					<CardSection>
-						<Button onPress={() => this.setState({ loginState: false })} > Login </Button>
-						<Button onPress={() => this.setState({ loginState: true })}> SignUp </Button>
-					</CardSection>
+			<View style={styles.container}>
+					<View style={styles.rubrikContainer} >
+						<Text style={styles.rubrikStyle} >Reporter</Text>
+					</View>
 					<Text style={styles.errorTextStyle}>
 						{ this.props.error }
 					</Text>
+					<View style={styles.formContainer} >
 					{this.renderForm()}
-					<CardSection>
+					</View>
+					<View style={styles.buttonContainer}>
 						{this.renderButton()}
-					</CardSection>
-				</Card>
+					</View>
+					{this.changeLoginButton()}
 			</View>
 		);
 	}
@@ -72,6 +93,41 @@ const styles = {
 		fontSize: 20,
 		alignSelf: 'center',
 		color: 'red'
+	},
+	container: {
+		height: SCREEN_HEIGHT,
+		width: SCREEN_WIDTH,
+		backgroundColor: '#1DA1F2',
+		flex:1,
+		flexDirection:'column'
+		
+	},
+	rubrikContainer: {
+		flexDirection:'row',
+		justifyContent:'center',
+		flex: 1.5
+	},
+	rubrikStyle: {
+		fontSize:46,
+		top:SCREEN_HEIGHT*0.1,
+		color:'white'
+	},
+	formContainer:{
+		justifyContent:'center',
+		flex: 3
+	},
+	buttonContainer:{
+		justifyContent:'center',
+		flex: 1
+	},
+	signUpText: {
+		justifyContent:'center',
+		alignSelf: 'center',
+		color: 'white'
+	},
+	changeLoginStateContainer: {
+		justifyContent:'center',
+		flex: 1.5
 	}
 };
 
