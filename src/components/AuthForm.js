@@ -103,7 +103,8 @@ const styles = {
 		width: SCREEN_WIDTH,
 		backgroundColor: '#1DA1F2',
 		flex:1,
-		flexDirection:'column'
+		flexDirection:'column',
+		position:'absolute'
 		
 	},
 	rubrikContainer: {
