@@ -29,11 +29,13 @@ class SwipeCard extends Component {
 
 const styles = {
   headerStyle: {
-    fontSize: 30
+    fontSize: 30,
+    fontFamily:'Roboto-Regular'
 
   },
   text: {
-    fontSize:20
+    fontSize:20,
+    fontFamily:'Roboto-Light'
   },
   swipeCardStyle: {
     width: cardWidth,

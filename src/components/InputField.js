@@ -1,12 +1,13 @@
 /* eslint-disable eol-last */
 
 import React, { Component } from 'react';
-import { Text, TextInput, View, Picker, Dimensions } from 'react-native';
+import { Text, TextInput, View, Picker, Dimensions, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import MapScreen from './MapScreen';
-import { textChange, subjectChange, saveComplaint, navigationsSaver } from '../actions';
+import { TextField } from 'react-native-material-textfield';
+import { textChange, subjectChange, saveComplaint, navigationsSaver, specificPositionChange } from '../actions';
 var cities = require('../json/kommuner.geo.json');
-import { CardSection, Card, JiroInput, Button, LargeInput, ExitButton, Spinner } from './common';
+import { CardSection, Card, JiroInput, Button, LargeInput, ExitButton, Spinner, AndroidInput } from './common';
 
 const {width, height} = Dimensions.get('window')
 
@@ -41,12 +42,11 @@ class InputField extends Component {
  	
 
 	onButtonPress() {
-		const { text, subject, navigation } = this.props;
+		const { text, subject, specificPosition, navigation } = this.props;
 		if(this.props.text == '' && this.props.subject == '') {
 			console.log('ingen information');
 		} else {
-			this.props.saveComplaint({ text, subject, navigation });
-			this.props.onAnimate();
+			this.props.saveComplaint({ text, subject, navigation, specificPosition });
 		}
 	}
 
@@ -58,6 +58,9 @@ class InputField extends Component {
 	onSubjectChange(text) {
 		this.props.subjectChange(text);
 	}
+	onPositionChange(text) {
+		this.props.specificPositionChange(text);
+	}
 
 	renderButton() {
 		if (this.props.loading) {
@@ -65,51 +68,120 @@ class InputField extends Component {
 		}
 		
 			return ( 
-				<Button onPress={this.onButtonPress.bind(this)}> Send </Button>
+				<View style={styles.buttonContainer}>
+					<Button 
+					onPress={this.onButtonPress.bind(this)}
+					textColor={'#FFFFFF'}
+					buttonColor={'#1DA1F2'}
+					> Send </Button>
+				</View>
 				);		
 	}
-
-	
-	render() {
-		return (
-			<View style={styles.cardStyle}>
-				<CardSection>
-					<JiroInput 
-							label="Problem"
-							placeholder="..."
-							icon="user"
+	renderForWhatDevice() {
+		if(Platform.OS == 'android') {
+			return (
+				<View style={{flex: 0 }}>
+						<AndroidInput 
+							label="Subject"
+							placeholder="Subject"
 							onChangeText={this.onSubjectChange.bind(this)}
 							value={this.props.subject}
+							containerHeight= {SCREEN_HEIGHT*0.1}
+							multiline={false}
 						/>
-						
+				
+				
+
+					<AndroidInput 
+							label="Cordinates"
+							placeholder="Cordinates"
+							value={JSON.stringify(this.state.latitude) + JSON.stringify(this.state.longitude)}
+							containerHeight= {SCREEN_HEIGHT*0.1}
+							multiline={false}
+						/>
+
+						<AndroidInput 
+							label="Specific Place"
+							placeholder="Specific place"
+							icon="user"
+							onChangeText={this.onPositionChange.bind(this)}
+							value={this.state.specificPosition}
+							containerHeight= {SCREEN_HEIGHT*0.1}
+							multiline={false}
+						/>
+					<AndroidInput 
+							label="Description"
+							placeholder="Description"
+							onChangeText={this.onTextChange.bind(this)}
+							value={this.props.text}
+							containerHeight= {SCREEN_HEIGHT*0.1}
+							multiline={true}
+						/>
+						{/*<ExitButton children="X" onPress={this.props.onAnimate} /> */}
+				</View>
+				)
+
+			}
+			else {
+				return(
+					<View>
+				<CardSection>
+					<LargeInput 
+							label="Problem"
+							placeholder="Subject"
+							onChangeText={this.onSubjectChange.bind(this)}
+							value={this.props.subject}
+							containerHeight= {SCREEN_HEIGHT*0.05}
+							borderBottomWidth={1}
+							multiline={false}
+						/>
+				
 				</CardSection>
+
 				<CardSection>
-					<JiroInput 
+					<LargeInput 
 							label="Problem"
-							placeholder="..."
-							icon="user"
-							onChangeText={this.onSubjectChange.bind(this)}
-							value={this.props.subject}
+							placeholder="Cordinates"
+							value={JSON.stringify(this.state.latitude) + JSON.stringify(this.state.longitude)}
+							containerHeight= {SCREEN_HEIGHT*0.05}
+							borderBottomWidth={1}
+							borderRightWidth={1}
+							multiline={false}
 						/>
 
-						<JiroInput 
+						<LargeInput 
 							label="Problem"
-							placeholder="..."
+							placeholder="Specific place"
 							icon="user"
-							onChangeText={this.onSubjectChange.bind(this)}
-							value={this.props.subject}
+							onChangeText={this.onPositionChange.bind(this)}
+							value={this.state.specificPosition}
+							containerHeight= {SCREEN_HEIGHT*0.05}
+							borderBottomWidth={1}
+							multiline={false}
 						/>
 				</CardSection>
 
 				<CardSection>
 					<LargeInput 
 							label="Problem"
-							placeholder="..."
+							placeholder="Description"
 							onChangeText={this.onTextChange.bind(this)}
 							value={this.props.text}
+							containerHeight= {SCREEN_HEIGHT*0.3}
+							multiline={true}
 						/>
-						<ExitButton children="X" onPress={this.props.onAnimate} />
+						{/*<ExitButton children="X" onPress={this.props.onAnimate} /> */}
 				</CardSection>
+				</View>
+				)
+			}
+	}
+	
+	render() {
+		return (
+			<View style={styles.cardStyle}>
+
+					{this.renderForWhatDevice()}
 						{/* 
 						Picker with json information
 						<Picker
@@ -123,8 +195,7 @@ class InputField extends Component {
 								))}
 						</Picker>
 					*/}
-
-				<CardSection>
+				<CardSection style={{flex:2}}>
 					{this.renderButton()}
 				</CardSection>
 
@@ -135,15 +206,34 @@ class InputField extends Component {
 
 const styles = {
 	cardStyle: {
-		top: 200
+		top: SCREEN_HEIGHT*0.13,
+		flex: 1
+	},
+	buttonContainer: {
+		justifyContent:'center',
+		flex: 1
+	},
+	containerStyle: {
+		flexDirection: 'row',
+		alignItems: 'flex-start',
+		borderBottomColor:'black',
+		borderRightColor:'black',
+	},
+	inputStyle: {
+		color: '#000',
+		paddingRight: 5,
+		paddingLeft: 5,
+		fontSize: 18,
+		lineHeight: 23,
+		alignItems: 'flex-start',
+		
 	}
 }
-
 const mapStateToProps = ({ auth }) => {
-	const { text, subject, navigation, loading  } = auth;
+	const { text, subject, navigation, loading, specificPosition  } = auth;
 
-	return { text, subject, navigation, loading };
+	return { text, subject, navigation, loading, specificPosition };
 };
 
 
-export default connect(mapStateToProps, { textChange, subjectChange, saveComplaint, navigationsSaver })(InputField);
+export default connect(mapStateToProps, { textChange, subjectChange, saveComplaint, navigationsSaver, specificPositionChange })(InputField);

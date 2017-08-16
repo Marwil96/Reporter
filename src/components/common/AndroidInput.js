@@ -1,22 +1,23 @@
 /* eslint-disable eol-last */
 import React from 'react';
 import { TextInput, View, Text, Dimensions } from 'react-native';
+import { TextField } from 'react-native-material-textfield';
 
 const {width, height} = Dimensions.get('window')
 
 const SCREEN_HEIGHT = height
 const SCREEN_WIDTH = width
 
-const LargeInput = ({ label, value, onChangeText, placeholder, secureTextEntry, containerHeight, inputHeight, borderBottomWidth, borderRightWidth, multiline }) => {
+const AndroidInput = ({ label, value, onChangeText, placeholder, secureTextEntry, containerHeight, inputHeight, borderBottomWidth, borderRightWidth, multiline }) => {
 	const { inputStyle, labelStyle, containerStyle } = styles;
 
 	return (
 		<View style={[containerStyle, {height:containerHeight}, {borderBottomWidth:borderBottomWidth}, {borderRightWidth:borderRightWidth}]}>
-			<TextInput
+			<TextField
 				secureTextEntry={secureTextEntry}
+				label={label}
 				placeholder={placeholder} 
 				autoCorrect={true}
-				style={[inputStyle, {height:inputHeight}]}
 				value={value}
 				onChangeText={onChangeText}
 				multiline={multiline}
@@ -35,8 +36,9 @@ const styles = {
 		lineHeight: 23,
 		flex: 1,
 		alignItems: 'flex-start',
+		width: 200,
 		fontFamily:'Roboto-Regular'
-
+		
 		
 
 	},
@@ -47,12 +49,11 @@ const styles = {
 		fontFamily:'Roboto-Thin'
 	},
 	containerStyle: {
-		flex: 1,
-		flexDirection: 'row',
-		alignItems: 'flex-start',
-		borderBottomColor:'black',
-		borderRightColor:'black',
+		 marginHorizontal: 4,
+    marginVertical: 8,
+    paddingHorizontal: 8,
+		
 	} 
 };
 
-export { LargeInput };
+export { AndroidInput };

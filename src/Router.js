@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
+import OpenAppSettings from 'react-native-app-settings';
+import firebase from 'firebase';
 import AuthForm from './components/AuthForm';
 import MainScreen from './components/MainScreen';
 import IntroductionDeck from './components/IntroductionDeck';
@@ -11,29 +13,36 @@ import InputField from  './components/InputField';
 const RouterComponent = () => {
 	return (
 		<Router >
-			<Scene key='Welcomning' >
+			<Scene key='Welcomning'>
 				<Scene key='intro' component={IntroductionDeck} hideNavBar={true} />
 			</Scene>	
 
-			<Scene key='auth'  >
+			<Scene key='auth' initial >
 				<Scene key='login' component={AuthForm} title='Please Login' hideNavBar={true} />
 			</Scene>
-			<Scene key='main' initial >
+			<Scene key='main' >
 				<Scene
-					onRight={() => Actions.employeeCreate()}
-					rightTitle="Add" 
+					onLeft={() => {firebase.auth().signOut(), Actions.auth()}}
+					onRight={() => OpenAppSettings.open()}
+					leftTitle="Log Out" 
+					rightTitle="Settnings"
 					key='employeeList' 
 					component={MainScreen} 
 					title='MainScreen'
+					navigationBarStyle={{backgroundColor:'#1DA1F2'}}
+					titleStyle={{color:'#FFFFFF', fontFamily:'Roboto-Regular'}}
+					leftButtonTextStyle={{color:'#FFFFFF', fontFamily:'Roboto-Regular'}}
+					rightButtonTextStyle={{color:'#FFFFFF', fontFamily:'Roboto-Regular'}}
+					initial
+					
 					 
 				/>
 				<Scene
-					onRight={() => Actions.employeeCreate()}
-					rightTitle="Add" 
+					onLeft={() => Actions.main()}
+					leftTitle="back" 
 					key='inputField' 
 					component={InputField} 
 					title='Report Error'
-					initial
 				/>
 
 			</Scene>

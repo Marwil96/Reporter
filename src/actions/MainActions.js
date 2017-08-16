@@ -3,7 +3,7 @@
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import Geocoder from 'react-native-geocoder';
-import { TEXT_CHANGE, SUBJECT_CHANGE, SAVED_COMPLAINT, NAVIGATION_SAVE, CORDINATES_FETCH_SUCCESS, SAVED_COMPLAINT_SUCCESS, SAVED_COMPLAINT_FAIL } from './types';
+import { TEXT_CHANGE, SUBJECT_CHANGE, SAVED_COMPLAINT, NAVIGATION_SAVE, CORDINATES_FETCH_SUCCESS, SAVED_COMPLAINT_SUCCESS, SAVED_COMPLAINT_FAIL, SPECIFIC_POSITION_CHANGE } from './types';
 
 export const textChange = (text) => {
 	return {
@@ -19,6 +19,13 @@ export const subjectChange = (text) => {
 	};
 };
 
+export const specificPositionChange = (text) => {
+	console.log(text)
+	return {
+		type: SPECIFIC_POSITION_CHANGE,
+		payload: text	
+	};
+};
 export const navigationsSaver = (text) => {
 	console.log(text);
 	return {
@@ -26,7 +33,7 @@ export const navigationsSaver = (text) => {
 		payload: text	
 	};
 };
-export const saveComplaint = ({ text, subject, navigation }) => {
+export const saveComplaint = ({ text, subject, navigation, specificPosition }) => {
 	return (dispatch) => {
 	dispatch({ type: SAVED_COMPLAINT });
 	var currentLocation = {
@@ -36,7 +43,7 @@ export const saveComplaint = ({ text, subject, navigation }) => {
 	Geocoder.geocodePosition(currentLocation).then(res => {
 		var currentCity = res[0].locality;
 		console.log('inFunction', res[0].locality )
-		saveComplaintSuccess(dispatch, currentCity, text, subject, navigation)
+		saveComplaintSuccess(dispatch, currentCity, text, subject, navigation, specificPosition)
 	})
 	 .catch(() => savedComplaintFail(dispatch));
 	 };
@@ -57,13 +64,14 @@ const savedComplaintFail = (dispatch) => {
 	dispatch({ type: SAVED_COMPLAINT_FAIL });
 };
 
-const saveComplaintSuccess = (dispatch, currentCity, text, subject, navigation) => {
-	console.log('saveComplaintSuccess', currentCity, text, subject, navigation);
+const saveComplaintSuccess = (dispatch, currentCity, text, subject, navigation, specificPosition) => {
+	console.log('saveComplaintSuccess', currentCity, text, subject, navigation, specificPosition);
 	const { currentUser } = firebase.auth();
 	firebase.database().ref(`/users/${firebase.auth().currentUser.uid}/complaints`)
-	.push({ text, subject, navigation, currentCity });	
+	.push({ text, subject, navigation, currentCity, specificPosition });	
 	dispatch({
 		type: SAVED_COMPLAINT_SUCCESS,
 		payload: user
 	});
+	Actions.main();
 };

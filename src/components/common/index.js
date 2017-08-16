@@ -11,3 +11,4 @@ export * from './ExitButton';
 export * from './ListItem';
 export * from './ButtonText';
 export * from './JiroInput';
+export * from './AndroidInput';

@@ -33,7 +33,11 @@ class AuthForm extends Component {
 		}
 		
 			return ( 
-				<Button onPress={this.onButtonPress.bind(this)}>
+				<Button 
+					onPress={this.onButtonPress.bind(this)}
+					textColor={'#1DA1F2'}
+					buttonColor={'#FFFFFF'}
+				>
 					Login
 				</Button>
 				);		
@@ -108,9 +112,10 @@ const styles = {
 		flex: 1.5
 	},
 	rubrikStyle: {
-		fontSize:46,
+		fontSize:48,
 		top:SCREEN_HEIGHT*0.1,
-		color:'white'
+		color:'white',
+		fontFamily:'Roboto-Black'
 	},
 	formContainer:{
 		justifyContent:'center',
@@ -123,7 +128,8 @@ const styles = {
 	signUpText: {
 		justifyContent:'center',
 		alignSelf: 'center',
-		color: 'white'
+		color: 'white',
+		fontFamily:'Roboto-Regular'
 	},
 	changeLoginStateContainer: {
 		justifyContent:'center',

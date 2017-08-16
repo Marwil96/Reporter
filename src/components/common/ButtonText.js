@@ -22,8 +22,8 @@ const styles = {
 	textStyle: {
 		alignSelf: 'center',
 		color: 'white',
-		fontSize: 16,
-		fontWeight: '600',
+		fontSize: 20,
+		fontFamily:'Roboto-Bold',
 		paddingTop: 10,
 		paddingBottom: 10
 	},

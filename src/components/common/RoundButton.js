@@ -1,6 +1,6 @@
 /* eslint-disable eol-last */
 import React from 'react';
-import { Text, TouchableOpacity, Dimensions, View } from 'react-native';
+import { Text, TouchableOpacity, Dimensions, View, Platform } from 'react-native';
 
 const {width, height} = Dimensions.get('window')
 
@@ -11,7 +11,7 @@ const RoundButton = ({ onPress, children }) => {
 	const { buttonStyle, textStyle, container } = styles; 
 	return (
 		<View style={container}>
-			<TouchableOpacity onPress={onPress} style={buttonStyle}>
+			<TouchableOpacity onPress={onPress} style={[buttonStyle, {zIndex: Platform.OS == 'android' ? 40 : 0}, {bottom: Platform.OS == 'android' ? 30 : 0}]}>
 				<Text style={textStyle}>
 					{children}
 				</Text>
@@ -26,15 +26,15 @@ const styles = {
 	    flexDirection: 'column',
 	    alignItems: 'center',
 	    top:SCREEN_HEIGHT*0.9,
-	    position:'relative'
+	    position:'relative',
   	},
 	textStyle: {
 		alignSelf: 'center',
 		color: 'white',
-		fontSize: 16,
-		fontWeight: '600',
-		paddingTop: 12,
-		paddingBottom: 12
+		fontSize: 20,
+		fontFamily:'Roboto-bold',
+		paddingTop: 10,
+		paddingBottom: 10
 	},
 	buttonStyle: {
 		alignSelf: 'center',

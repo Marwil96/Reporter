@@ -7,6 +7,7 @@ import MapScreen from './MapScreen';
 import InputField from './InputField';
 import SwipeCard from './SwipeCard';
 import { textChange } from '../actions';
+import { Actions } from 'react-native-router-flux';
 import { CardSection, Card, Input, RoundButton } from './common';
 
 const {width, height} = Dimensions.get('window')
@@ -39,36 +40,17 @@ class MainScreen extends Component {
 			}
 		}
 		animateOnButton() {
+			Actions.inputField();
 		if(direction === 2) {
 			this.setState({
-		       buttonState: 'Exit',
+		       buttonState: 'Report',
 		    });
-		    Animated.timing(this.position, {
-		      toValue: { x: 0, y: -SCREEN_HEIGHT*0.5 },
-		      duration: 1500,
-		      easing: Easing.linear
-		    }).start();
-		    Animated.timing(this.roundButtonPosition, {
-		      toValue: { x: 0, y: -SCREEN_HEIGHT*0.52 },
-		      duration: 1500,
-		      easing: Easing.linear
-    		}).start();
     		direction = 1;
 		 }
 		 else {
 		 	this.setState({
 		       buttonState: 'Report',
 		    });
-		    Animated.timing(this.position, {
-		      toValue: { x: 0, y: SCREEN_HEIGHT*0.5 },
-		      duration: 1500,
-		      easing: Easing.linear
-		    }).start();
-		    Animated.timing(this.roundButtonPosition, {
-		      toValue: { x: 0, y: 0 },
-		      duration: 1500,
-		      easing: Easing.linear
-		    }).start();
 		    direction = 2;
 		    }
 
@@ -135,14 +117,12 @@ class MainScreen extends Component {
 					<SwipeCard />
 				</Animated.View>
 				<View style={styles.bottomStyle}>
-				<Animated.View style={this.roundButtonPosition.getLayout()}>
-					<RoundButton onPress={ this.state.buttonPurpose } children={ this.state.buttonState } />
-				</Animated.View>
+					<Animated.View style={this.roundButtonPosition.getLayout()}>
+						<RoundButton onPress={ this.state.buttonPurpose } children={ this.state.buttonState } />
+					</Animated.View>
 				</View>
 
-				<Animated.View style={this.position.getLayout()}>
-					<InputField onAnimate={this.animateOnButton.bind(this)} />
-				</Animated.View>
+				
 
 				
 			</View> 
@@ -158,7 +138,7 @@ const styles = {
     position:'absolute',
     },
     bottomStyle: {
-    	justifyContent:'flex-end'
+    	justifyContent:'flex-end',
     }
 }
 

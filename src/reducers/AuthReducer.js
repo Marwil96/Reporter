@@ -1,9 +1,10 @@
 /* eslint-disable eol-last */
-import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER, NAME_CHANGE, TEXT_CHANGE, SUBJECT_CHANGE, SAVED_COMPLAINT, NAVIGATION_SAVE, SAVED_COMPLAINT_SUCCESS, SAVED_COMPLAINT_FAIL } from '../actions/types';
+import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER, NAME_CHANGE, TEXT_CHANGE, SUBJECT_CHANGE, SAVED_COMPLAINT, NAVIGATION_SAVE, SAVED_COMPLAINT_SUCCESS, SAVED_COMPLAINT_FAIL, SPECIFIC_POSITION_CHANGE } from '../actions/types';
 
-const INITIAL_STATE = { email: '', password: '', user: null, error: '', loading: false, name: '', text: '', subject: '', navigation: '' };
+const INITIAL_STATE = { email: '', password: '', user: null, error: '', loading: false, name: '', text: '', subject: '', navigation: '', specificPosition: '' };
 
 export default (state = INITIAL_STATE, action) => {
+	console.log(state)
 	switch (action.type) {
 		case EMAIL_CHANGED:
 			return { ...state, email: 'test@test.com' };
@@ -17,6 +18,8 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, text: action.payload };
 		case SUBJECT_CHANGE:
 			return { ...state, subject: action.payload };
+		case SPECIFIC_POSITION_CHANGE:
+			return { ...state, specificPosition: action.payload };
 		case NAVIGATION_SAVE:
 			return { ...state, navigation: action.payload };
 		case SAVED_COMPLAINT:

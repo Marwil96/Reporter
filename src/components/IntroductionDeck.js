@@ -54,11 +54,12 @@ const styles = {
     color: '#fff',
     fontSize: 25,
     fontWeight: 'normal',
+    fontFamily:'Roboto-Regular'
   },
   headerText: {
     color: '#fff',
     fontSize: 45,
-    fontWeight: 'bold',
+    fontFamily:'Roboto-Bold'
   },
 }
 

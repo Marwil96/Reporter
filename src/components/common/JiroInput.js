@@ -46,12 +46,11 @@ const styles = {
 		width: SCREEN_WIDTH,
 		flex: 1,
 		flexDirection: 'row',
-		justifyContent:'center',
-		alignItems: 'center',
     	borderBottomColor:'black',
 		borderBottomWidth: 1,
 		borderRightColor:'black',
-		borderRightWidth: 1
+		borderRightWidth: 1,
+		paddingRight: 5
 	} 
 };
 

@@ -38,8 +38,8 @@ const styles = {
 		justifyContent:'center',
 		alignItems: 'center',
 		width: SCREEN_WIDTH*0.75,
-		borderBottomColor:'white',
-		borderBottomWidth: 1
+		paddingVertical: 0,
+		fontFamily:'Roboto-Light'
 
 	},
 	containerStyle: {
@@ -49,7 +49,8 @@ const styles = {
 		flexDirection: 'row',
 		justifyContent:'center',
 		alignItems: 'center',
-    	borderBottomColor: '#d6d7da'
+    	borderBottomColor: '#d6d7da',
+    	paddingVertical: 0
 	} 
 };
 
