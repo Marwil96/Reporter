@@ -35,7 +35,7 @@ class SignUpForm extends Component {
 						secureTextEntry
 						label="Password"
 						placeholder="password"
-						icon="check"
+						icon="key"
 						onChangeText={this.onPasswordChange.bind(this)}
 						value={this.props.password}
 					/>
