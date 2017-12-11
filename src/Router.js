@@ -38,7 +38,7 @@ const RouterComponent = () => {
 					 
 				/>
 				<Scene
-					onLeft={() => Actions.main()}
+					onLeft={() => Actions.employeeList()}
 					leftTitle="back" 
 					key='inputField' 
 					component={InputField} 

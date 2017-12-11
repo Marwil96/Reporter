@@ -35,6 +35,7 @@ export const navigationsSaver = (text) => {
 };
 export const saveComplaint = ({ text, subject, navigation, specificPosition }) => {
 	return (dispatch) => {
+		Actions.employeeList();
 	dispatch({ type: SAVED_COMPLAINT });
 	var currentLocation = {
 	  lat: navigation.latitude,
@@ -47,6 +48,7 @@ export const saveComplaint = ({ text, subject, navigation, specificPosition }) =
 	})
 	 .catch(() => savedComplaintFail(dispatch));
 	 };
+
 };
 
 export const fetchCordinates = () => {
@@ -73,5 +75,6 @@ const saveComplaintSuccess = (dispatch, currentCity, text, subject, navigation, 
 		type: SAVED_COMPLAINT_SUCCESS,
 		payload: user
 	});
-	Actions.main();
+
+	
 };
